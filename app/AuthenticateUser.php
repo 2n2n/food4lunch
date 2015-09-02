@@ -21,7 +21,7 @@ class AuthenticateUser {
         if (!$request) return $this->getAuthorizationFirst($provider);
         $user = $this->users->findByUserNameOrCreate($this->getSocialUser($provider));
         $this->auth->login($user, true);
-
+        
         return $listener->userHasLoggedIn($user);
     }
 

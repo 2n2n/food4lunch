@@ -7,15 +7,14 @@ class UserRepository {
     public function findByUserNameOrCreate($userData) {
         $user = User::where('provider_id', '=', $userData->id)->first();
         if(!$user) {
-            $info = [
+            $user = User::create([
                 'provider_id' => $userData->id,
                 'name' => $userData->name,
                 'username' => $userData->nickname,
                 'email' => $userData->email,
                 'avatar' => $userData->avatar,
-            ];
-
-            $user = User::create($info);
+                'provider' => 'google'
+            ]);
         }
         $this->checkIfUserNeedsUpdating($userData, $user);
         return $user;

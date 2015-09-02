@@ -70,10 +70,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function getLogin() {
-        return view("auth/login");
-    }
-
     public function postLogin(Request $request) {
         var_dump($request->get('email'));
         echo "<pre>";
@@ -81,7 +77,6 @@ class AuthController extends Controller
 
     }
     public function postRegister(Request $request) {
-        var_dump($request->all());
     }
 
     public function redirectToProvider(AuthenticateUser $authenticateUser, Request $request, $provider = null) {

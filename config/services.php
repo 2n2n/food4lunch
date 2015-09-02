@@ -38,7 +38,7 @@ return [
     'google' => [
         'client_id' => '271180699524-j9ns1k08cui12p182hirgee20b8ruhfh.apps.googleusercontent.com',
         'client_secret' => 'DCs2ImaQUyylygQ6dsy3K_4F',
-        'redirect' => 'http://localhost/food4lunch/public/auth/google',
+        'redirect' => 'https://food4lunch-a2n2n-1.c9.io/public/auth/google',
     ]
 
 ];

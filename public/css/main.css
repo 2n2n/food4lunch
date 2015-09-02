@@ -1,0 +1,8 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+.panel-heading {
+   border-top-left-radius: 0px;
+   border-top-right-radius: 0px;
+}

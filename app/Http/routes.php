@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth');
-});
+Route::get('/', "Home@index");
 
 // authentication routes
 Route::get('auth/login', "Auth\AuthController@getLogin");
@@ -28,4 +26,4 @@ Route::post('auth/register', "Auth\AuthController@postRegister");
 Route::get('auth/{provider?}', "Auth\AuthController@redirectToProvider");
 Route::get('auth/{provider?}/callback', "Auth\AuthController@handleProviderCallback");
 
-Route::match(['GET', 'POST'], '/dashboard', "Dashboard@index");
+Route::match(['GET', 'POST'], 'dashboard', "Dashboard@index");
