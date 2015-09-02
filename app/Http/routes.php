@@ -26,4 +26,6 @@ Route::post('auth/register', "Auth\AuthController@postRegister");
 Route::get('auth/{provider?}', "Auth\AuthController@redirectToProvider");
 Route::get('auth/{provider?}/callback', "Auth\AuthController@handleProviderCallback");
 
-Route::match(['GET', 'POST'], 'dashboard', "Dashboard@index");
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('dashboard', "Dashboard@index");
+});

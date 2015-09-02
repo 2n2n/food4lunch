@@ -6,6 +6,7 @@ use App\User;
 use App\AuthenticateUser;
 use Validator;
 use Socialite;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
