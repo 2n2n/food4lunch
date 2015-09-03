@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', "Home@index");
+Route::group(['middleware' => 'guest'], function(){
+    Route::get('/', "Home@index");
+});
 
 // authentication routes
 Route::get('auth/login', "Auth\AuthController@getLogin");
@@ -26,6 +28,7 @@ Route::post('auth/register', "Auth\AuthController@postRegister");
 Route::get('auth/{provider?}', "Auth\AuthController@redirectToProvider");
 Route::get('auth/{provider?}/callback', "Auth\AuthController@handleProviderCallback");
 
-Route::group(['middleware' => 'auth'], function() {
-    Route::get('dashboard', "Dashboard@index");
+
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
+    Route::get('/', "Dashboard@index");
 });

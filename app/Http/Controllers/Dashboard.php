@@ -16,7 +16,8 @@ class Dashboard extends Controller
      */
     public function index(Request $request)
     {
-        echo $request->session()->get('message');
+        echo "<pre>";
+        print_r($request->session());
     }
 
     /**
