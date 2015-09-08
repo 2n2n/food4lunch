@@ -16,11 +16,11 @@ class CreateUserTable extends Migration
         {
             $table->increments('id');
             $table->string('name');
-            $table->string('username')->nullable();
             $table->string('email')->nullable();
-            $table->string('avatar');
-            $table->string('provider');
-            $table->string('provider_id')->unique();
+            $table->string('password')->nullable();
+            $table->string('avatar')->default("https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50");
+            $table->string('provider')->default('manual');
+            $table->string('provider_id')->unqiue();
             $table->rememberToken();
             $table->timestamps();
         });

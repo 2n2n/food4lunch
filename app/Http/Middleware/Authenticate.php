@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Session\Store;
 
 class Authenticate
 {
@@ -13,6 +14,7 @@ class Authenticate
      * @var Guard
      */
     protected $auth;
+    protected $session;
 
     /**
      * Create a new filter instance.
@@ -20,7 +22,7 @@ class Authenticate
      * @param  Guard  $auth
      * @return void
      */
-    public function __construct(Guard $auth)
+    public function __construct(Guard $auth, Store $session)
     {
         $this->auth = $auth;
     }
@@ -41,7 +43,15 @@ class Authenticate
                 return redirect()->guest('/');
             }
         }
-
+        else if (!in_array($this->auth->user()->role, [1,2])) { // if logged in but not member or superuser 
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->guest('auth/logout');
+            }
+        }
+        
         return $next($request);
+
     }
 }

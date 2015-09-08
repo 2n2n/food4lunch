@@ -11,24 +11,20 @@
 |
 */
 
+
+# for guest logins
 Route::group(['middleware' => 'guest'], function(){
     Route::get('/', "Home@index");
+    # socialite authentication routes
+    Route::get('auth/{provider?}', "Auth\AuthController@redirectToProvider");
+    Route::get('auth/{provider?}/callback', "Auth\AuthController@handleProviderCallback");
+    
+    # regular login
+    Route::post('auth/register', 'Auth\AuthController@postRegister');
+    Route::post('auth/login', "Auth\AuthController@postLogin");
 });
-
-// authentication routes
-Route::get('auth/login', "Auth\AuthController@getLogin");
-Route::post('auth/login', "Auth\AuthController@postLogin");
-Route::get('auth/logout', "Auth\AuthController@getLogout");
-
-// registration routes
-
-Route::get('auth/register', "Auth\AuthController@getRegister");
-Route::post('auth/register', "Auth\AuthController@postRegister");
-
-Route::get('auth/{provider?}', "Auth\AuthController@redirectToProvider");
-Route::get('auth/{provider?}/callback', "Auth\AuthController@handleProviderCallback");
-
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
     Route::get('/', "Dashboard@index");
+    Route::get('logout', "Auth\AuthController@getLogout");
 });

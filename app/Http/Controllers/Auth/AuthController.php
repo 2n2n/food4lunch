@@ -16,7 +16,7 @@ class AuthController extends Controller
 {
     
     protected $loginPath = "/auth/login";
-    protected $redirectPath = "/dashboard";
+    protected $redirectPath = "/order";
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'fullname' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -65,19 +65,65 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['fullname'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
+    
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email', 'password' => 'required',
+        ]);
+        
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+        $credentials = $this->getCredentials($request);
+   
+        if (Auth::attempt($credentials, true)) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
 
-    public function postLogin(Request $request) {
-        var_dump($request->get('email'));
-        echo "<pre>";
-        echo print_r(get_class_methods($request),true);
-
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        
+        if ($throttles) {
+            $this->incrementLoginAttempts($request);
+        }
+        
+        return redirect($this->loginPath())
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => $this->getFailedLoginMessage(),
+            ]);
     }
+    
     public function postRegister(Request $request) {
+        $validator = $this->validator($request->all());
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+            return redirect('/');
+        }
+
+        Auth::login($this->create($request->all()));
+
+        return redirect($this->redirectPath());
     }
 
     public function redirectToProvider(AuthenticateUser $authenticateUser, Request $request, $provider = null) {
