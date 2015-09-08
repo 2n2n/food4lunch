@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
 class VerifyCsrfToken extends BaseVerifier
@@ -11,8 +10,9 @@ class VerifyCsrfToken extends BaseVerifier
      *
      * @var array
      */
+
     protected $except = [
-        'auth/register',
-        'auth/login'
+        // 'auth/register',
+        // 'auth/login'
     ];
 }
