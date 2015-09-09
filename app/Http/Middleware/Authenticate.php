@@ -50,7 +50,6 @@ class Authenticate
                 return redirect()->guest('auth/logout');
             }
         }
-        
         return $next($request);
 
     }

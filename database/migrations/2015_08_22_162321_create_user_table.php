@@ -17,7 +17,7 @@ class CreateUserTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->nullable();
-            $table->string('password')->nullable();
+            $table->string('password', 60)->nullable();
             $table->string('avatar')->default("https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg?sz=50");
             $table->string('provider')->default('manual');
             $table->string('provider_id')->unqiue();

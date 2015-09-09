@@ -12,6 +12,7 @@
 @endsection
 
 @section("error_message")
+{{ print_r($errors) }}
     @if( count($errors) > 0 )
         <div class="alert alert-danger" role="alert">
             @foreach($errors->all() as $error)
@@ -30,7 +31,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Sign In</div>
                 <div class="panel-body">
-                    <form method="POST" action="auth/login">
+                    <form method="POST" action="member/login">
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <input type="text" name="email" class="form-control" placeholder="email">
@@ -49,7 +50,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form method="POST" action="auth/register">
+                    <form method="POST" action="member/register">
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <input type="text" name="fullname" value="{{ old('name') }}" class="form-control" placeholder="Name">

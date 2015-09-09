@@ -15,7 +15,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 class AuthController extends Controller
 {
     
-    protected $loginPath = "/auth/login";
+    protected $loginPath = "/";
     protected $redirectPath = "/order";
 
     /*
@@ -40,7 +40,14 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
-
+    
+    /**
+     * Registration and Login Page aka STEP 1
+     */
+    public function index() {
+        return view("auth.index");    
+    }
+    
     /**
      * Get a validator for an incoming registration request.
      *
@@ -67,7 +74,7 @@ class AuthController extends Controller
         return User::create([
             'name' => $data['fullname'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' => $data['password'],
         ]);
     }
     
@@ -79,14 +86,13 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
-        $this->validate($request, [
+        $validator = $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
         ]);
         
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        
         $throttles = $this->isUsingThrottlesLoginsTrait();
         if ($throttles && $this->hasTooManyLoginAttempts($request)) {
             return $this->sendLockoutResponse($request);
@@ -101,14 +107,15 @@ class AuthController extends Controller
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         
+        
         if ($throttles) {
             $this->incrementLoginAttempts($request);
         }
         
         return redirect($this->loginPath())
-            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withInput($request->only($this->loginUsername()))
             ->withErrors([
-                $this->loginUsername() => $this->getFailedLoginMessage(),
+               $this->loginUsername() => $this->getFailedLoginMessage(),
             ]);
     }
     
@@ -118,7 +125,7 @@ class AuthController extends Controller
             $this->throwValidationException(
                 $request, $validator
             );
-            return redirect('/');
+            return redirect($this->loginPath());
         }
 
         Auth::login($this->create($request->all()));
