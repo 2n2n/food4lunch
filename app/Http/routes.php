@@ -14,17 +14,28 @@
 
 # for guest logins
 Route::group(['middleware' => 'guest'], function(){
-    Route::get('/', "Auth\AuthController@index");
     # socialite authentication routes
     Route::get('auth/{provider?}', "Auth\AuthController@redirectToProvider");
     Route::get('auth/{provider?}/callback', "Auth\AuthController@handleProviderCallback");
     
     # regular login
     Route::post('member/register', 'Auth\AuthController@postRegister');
+    Route::get('/', "Auth\AuthController@index");
     Route::post('member/login', "Auth\AuthController@postLogin");
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
     Route::get('/', "Dashboard@index");
     Route::get('logout', "Auth\AuthController@getLogout");
+});
+
+# steps for step2 and step 3
+Route::group(['middleware' => 'auth', 'prefix' => 'order'], function() {
+    Route::match(['get', 'post'],'/step/{step}', 'UserOrderController@orderProcess')->where('step', '[2-3]+');
+});
+
+Route::group(['middleware' => 'auth'], function() {
+   Route::post('fetch_menu', function() {
+       return App\Menu::all();
+   }); 
 });

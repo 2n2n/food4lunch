@@ -1,8 +1,31 @@
 body {
-    font-family: 'Oswald', sans-serif;
+    /*font-family: 'Oswald', sans-serif;*/
 }
 
 .panel-heading {
    border-top-left-radius: 0px;
    border-top-right-radius: 0px;
+}
+
+ul.my-form-list {
+    list-style: none;
+}
+.my-form-list li {
+    margin-bottom:5px;
+}
+.note:before {
+    content: "+";
+}
+.note {
+    font-family:'Arial';
+    color: #9A98A0;
+}
+
+.extra-add-on a.glyphicon-remove:hover {
+    text-decoration:none;
+    color:#333;
+}
+
+.extra-add-on a.glyphicon-remove{
+    color:#9A98A0;
 }

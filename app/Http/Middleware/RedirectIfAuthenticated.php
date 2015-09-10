@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-
 class RedirectIfAuthenticated
 {
     /**
@@ -37,7 +36,6 @@ class RedirectIfAuthenticated
         if ($this->auth->check()) {
             return redirect('dashboard');
         }
-        
         return $next($request);
     }
 }

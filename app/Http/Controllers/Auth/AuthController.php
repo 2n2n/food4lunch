@@ -16,8 +16,8 @@ class AuthController extends Controller
 {
     
     protected $loginPath = "/";
-    protected $redirectPath = "/order";
-
+    protected $redirectPath = "order/step/2";
+    // protected $redirectPath = "dashboard";
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -86,21 +86,21 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
-        $validator = $this->validate($request, [
+        $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
         ]);
         
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        $throttles = $this->isUsingThrottlesLoginsTrait();
-        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
-            return $this->sendLockoutResponse($request);
-        }
+        // $throttles = $this->isUsingThrottlesLoginsTrait();
+        // if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+        //     return $this->sendLockoutResponse($request);
+        // }
         $credentials = $this->getCredentials($request);
    
         if (Auth::attempt($credentials, true)) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
+            return redirect()->intended($this->redirectPath());
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -108,9 +108,9 @@ class AuthController extends Controller
         // user surpasses their maximum number of attempts they will get locked out.
         
         
-        if ($throttles) {
-            $this->incrementLoginAttempts($request);
-        }
+        // if ($throttles) {
+        //     $this->incrementLoginAttempts($request);
+        // }
         
         return redirect($this->loginPath())
             ->withInput($request->only($this->loginUsername()))
@@ -138,7 +138,6 @@ class AuthController extends Controller
     }
 
     public function userHasLoggedIn($user) {
-        \Session::flash('message', 'Welcome, ' . $user->name);
-        return redirect('/dashboard');
+        return redirect()->intended($this->redirectPath());
     }
 }

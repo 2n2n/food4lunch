@@ -12,7 +12,6 @@
 @endsection
 
 @section("error_message")
-{{ print_r($errors) }}
     @if( count($errors) > 0 )
         <div class="alert alert-danger" role="alert">
             @foreach($errors->all() as $error)
@@ -34,13 +33,13 @@
                     <form method="POST" action="member/login">
                         {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" name="email" class="form-control" placeholder="email">
+                            <input type="text" name="email" class="form-control" placeholder="email" value="{{ old('email') }}">
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" placeholder="password">
                         </div>
                         <button type="submit" class="btn btn-default">Proceed</button>
-                         <a href="#" class="align-left">Forgot Password?</a> | Sign in using <a href="{{URL::to('auth/google')}}" class="align-left">google+</a>
+                         Sign in using <a href="{{URL::to('auth/google')}}" class="align-left">google+</a>
                         
                     </form>
                 </div>

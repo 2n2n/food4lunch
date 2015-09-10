@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Session\Store;
-
+use Auth;
 class Authenticate
 {
     /**
@@ -41,13 +41,6 @@ class Authenticate
                 return response('Unauthorized.', 401);
             } else {
                 return redirect()->guest('/');
-            }
-        }
-        else if (!in_array($this->auth->user()->role, [1,2])) { // if logged in but not member or superuser 
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('auth/logout');
             }
         }
         return $next($request);
