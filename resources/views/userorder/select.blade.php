@@ -1,10 +1,10 @@
 @extends('layouts.master')
 @section("steps")
-    <div class="list-group">
+     <div class="list-group">
         <div class="list-group-item">Login/Register</div>
-        <div class="list-group-item disabled">Place your order</div>
-        <div class="list-group-item">Check-out</div>
-        <div class="list-group-item">Success!</div>
+        <div class="list-group-item active">Place your order</div>
+        <div class="list-group-item">Confirm Order</div>
+        <div class="list-group-item">Done!</div>
     </div>
 @endsection
 
@@ -26,7 +26,7 @@
                                             <option value="{{$food->id}}"> {{ $food->description }} </option>
                                             @endif
                                         @endforeach
-                                        <option value="none">-- No Main dish --</option>
+                                        <option value="0">-- No Main dish --</option>
                                     </select>
                                 </div>
                             </li>
@@ -39,7 +39,7 @@
                                             <option value="{{$food->id}}"> {{ $food->description }} </option>
                                             @endif
                                         @endforeach
-                                        <option value="none">-- No Side dish --</option>
+                                        <option value="0">-- No Side dish --</option>
                                     </select>
                                 </div>
                             </li>

@@ -98,7 +98,7 @@ class AuthController extends Controller
         //     return $this->sendLockoutResponse($request);
         // }
         $credentials = $this->getCredentials($request);
-   
+        
         if (Auth::attempt($credentials, true)) {
             return redirect()->intended($this->redirectPath());
         }
@@ -125,7 +125,6 @@ class AuthController extends Controller
             $this->throwValidationException(
                 $request, $validator
             );
-            return redirect($this->loginPath());
         }
 
         Auth::login($this->create($request->all()));

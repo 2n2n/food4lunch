@@ -31,7 +31,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
 
 # steps for step2 and step 3
 Route::group(['middleware' => 'auth', 'prefix' => 'order'], function() {
-    Route::match(['get', 'post'],'/step/{step}', 'UserOrderController@orderProcess')->where('step', '[2-3]+');
+    Route::match(['get'],'/step/2', 'UserOrderController@orderProcess');
+    Route::match(['get', 'post'],'/step/3', 'UserOrderController@computeOrder');
 });
 
 Route::group(['middleware' => 'auth'], function() {

@@ -20,11 +20,10 @@
             }
         },
         dropdown: function(name, data, attr) {
-            attr = attr || {}
+            attr = attr || {name:name}
             attr['class'] = 'form-control'
-            var selectEl = $('<select/>', {attr});
+            var selectEl = $('<select/>', attr);
             count = 0;
-            console.log(data);
             $.each(data, function(key,val){
                 var option = $('<option>',{
                     'value': val.id

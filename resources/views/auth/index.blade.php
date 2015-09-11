@@ -3,14 +3,13 @@
 @section("Step", "Welcome")
 
 @section("steps")
-    <div class="list-group">
-        <div class="list-group-item disabled">Login/Register</div>
+     <div class="list-group">
+        <div class="list-group-item active">Login/Register</div>
         <div class="list-group-item">Place your order</div>
-        <div class="list-group-item">Check-out</div>
-        <div class="list-group-item">Success!</div>
+        <div class="list-group-item">Confirm Order</div>
+        <div class="list-group-item">Done!</div>
     </div>
 @endsection
-
 @section("error_message")
     @if( count($errors) > 0 )
         <div class="alert alert-danger" role="alert">

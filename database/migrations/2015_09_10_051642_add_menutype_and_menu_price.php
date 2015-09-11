@@ -28,10 +28,10 @@ class AddMenutypeAndMenuPrice extends Migration
     public function down()
     {
         if(Schema::hasTable('menus')) {
-            if(Schema::hasColumn('type')){
+            if(Schema::hasColumn('menu','type')){
                 Schema::drop('type');
             }
-            if(Schema::hasColumn('price')) {
+            if(Schema::hasColumn('menu','price')) {
                 Schema::drop('price');
             }
         }

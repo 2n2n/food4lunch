@@ -17,6 +17,7 @@
             @if(Auth::check())
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Welcome, {{ Auth::user()->name }}</a></li>
                     <li> <a href="#" class="glyphicon glyphicon-shopping-cart">&nbsp;</a></li>
                     <li>
                         <a href="{{ URL::to('dashboard/logout') }}" class="btn" title="logout">
