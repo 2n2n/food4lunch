@@ -86,7 +86,6 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
-        dd('yollow');
         $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
         ]);
@@ -101,18 +100,17 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
         
         if (Auth::attempt($credentials, true)) {
-            return redirect()->intended($this->redirectPath());
+            //  return $this->handleUserWasAuthenticated($request, $throttles);
+            return redirect()
+                ->intended($this->redirectPath());
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
         // user surpasses their maximum number of attempts they will get locked out.
         
-        
-        // if ($throttles) {
-        //     $this->incrementLoginAttempts($request);
-        // }
-        return redirect($this->loginPath())
+        return redirect()
+            ->to($this->loginPath())
             ->withInput($request->only($this->loginUsername()))
             ->withErrors([
                $this->loginUsername() => $this->getFailedLoginMessage(),

@@ -6,7 +6,6 @@
      <div class="list-group">
         <div class="list-group-item active">Login/Register</div>
         <div class="list-group-item">Place your order</div>
-        <div class="list-group-item">Confirm Order</div>
         <div class="list-group-item">Done!</div>
     </div>
 @endsection

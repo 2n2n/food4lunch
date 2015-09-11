@@ -95,35 +95,41 @@ class UserOrderController extends Controller
     
     public function computeOrder(Request $request) {
         if($request->isMethod('post')) {
-            $order = new Order;
             $main = Menu::select('id','description', 'amount')->where('id',$request->get("maindish"))->first();
             $side = Menu::select('id','description', 'amount')->where('id',$request->get("sidedish"))->first();
+            $total = 0;
+            $is_combo = false;
             
-            $info = [
-                'user_id' => Auth::user()->id,
-            ];
+            # check if combo meal is present;
+            if(!is_null($main) && !is_null($side) && $request->has('rice')) {
+                $is_combo = true;
+                $total = 60.00;
+            }
+            
             if(!is_null($main)) {
-               $info['main_dish'] = $main->toJson();
+                if(!$is_combo) $total += $main->amount;
+                $info['main_dish'] = $main->toJson();
             }
             if(!is_null($side)) {
-                $info['main_dish'] = $side->toJson();
+                if(!$is_combo) $total += $side->amount;
+                $info['side_dish'] = $side->toJson();
             }
-            if(!$request->has('rice')) {
+            if($request->has('rice')) {
+                if(!$is_combo) $total += 10.00;
                 $info['has_rice'] = false; 
             }
             if($request->has('extra')) {
-                $extra = Menu::select('id','description','amount')->whereIn('id',$request->get('extra'))->get()->toJson(); 
-                $info['extra'] = $extra;
+                foreach($request->get('extra') as $order_id) {
+                    $extra = Menu::select('id','description','amount')->where('id', $order_id)->get()->first(); 
+                    $total += $extra->amount;
+                    $info['extra'][] = $extra->toJson();
+                }
+                $info['extra'] = json_encode($info['extra']);
             }
-            dd($extra);
             
-            $data['collection'] = [[
-                    
-                    ]];
-            // $data['collection'] = [
-            //     ['description' => 'Ulam', 'qty' => '1', 'price' => number_format(1960,2)]
-            // ];
-            return view('userorder.statement', $data);
+            $info['user_id'] = Auth::user()->id;
+            $order = Order::create($info);
+            return view('userorder.success', ['total' => $total]);
         }
         if( count($request->all()) < 1 ) {
             return redirect('/order/step/2');

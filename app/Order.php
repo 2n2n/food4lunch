@@ -7,6 +7,7 @@ use App\Http\Requests;
 class Order extends Model
 {
     protected $table = "orders";
+    protected $primaryKey = 'order_id';
     protected $fillable = ['user_id', 'main_dish', 'side_dish', 'extra', 'has_rice'];
     
 }
