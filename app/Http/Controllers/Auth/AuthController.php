@@ -86,6 +86,7 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request)
     {
+        dd('yollow');
         $this->validate($request, [
             'email' => 'required|email', 'password' => 'required',
         ]);
@@ -111,7 +112,6 @@ class AuthController extends Controller
         // if ($throttles) {
         //     $this->incrementLoginAttempts($request);
         // }
-        
         return redirect($this->loginPath())
             ->withInput($request->only($this->loginUsername()))
             ->withErrors([
