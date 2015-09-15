@@ -17,7 +17,6 @@ class AuthController extends Controller
     
     protected $loginPath = "/";
     protected $redirectPath = "order/step/2";
-    // protected $redirectPath = "dashboard";
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -38,7 +37,6 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
     }
     
     /**
@@ -98,11 +96,8 @@ class AuthController extends Controller
         //     return $this->sendLockoutResponse($request);
         // }
         $credentials = $this->getCredentials($request);
-        
         if (Auth::attempt($credentials, true)) {
-            //  return $this->handleUserWasAuthenticated($request, $throttles);
-            return redirect()
-                ->intended($this->redirectPath());
+             return $this->handleUserWasAuthenticated($request, false);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -117,19 +112,25 @@ class AuthController extends Controller
             ]);
     }
     
-    public function postRegister(Request $request) {
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postRegister(Request $request)
+    {
         $validator = $this->validator($request->all());
         if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
+            
+            return redirect($this->loginPath())
+                ->withErrors($validator);
         }
-
+    dd("passed!");
         Auth::login($this->create($request->all()));
 
         return redirect($this->redirectPath());
     }
-
     public function redirectToProvider(AuthenticateUser $authenticateUser, Request $request, $provider = null) {
         return $authenticateUser->execute($request->all(), $this, $provider);
     }

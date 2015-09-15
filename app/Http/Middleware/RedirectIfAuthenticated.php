@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+
 class RedirectIfAuthenticated
 {
     /**
@@ -12,7 +13,6 @@ class RedirectIfAuthenticated
      * @var Guard
      */
     protected $auth;
-
     /**
      * Create a new filter instance.
      *
@@ -22,6 +22,7 @@ class RedirectIfAuthenticated
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
+        
     }
 
     /**

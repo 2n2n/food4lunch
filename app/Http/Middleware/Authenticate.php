@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Session\Store;
+use Illuminate\Validation\Validator;
 use Auth;
 class Authenticate
 {
@@ -25,6 +25,7 @@ class Authenticate
     public function __construct(Guard $auth, Store $session)
     {
         $this->auth = $auth;
+        $this->session = $session;
     }
 
     /**

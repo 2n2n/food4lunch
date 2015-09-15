@@ -8,33 +8,33 @@
 @endsection
 
 @section('statement')
-<!--<div class="panel panel-success">-->
-    <!-- Default panel contents -->
-<!--    <div class="panel-heading">Order Statement</div>-->
-<!--    <div class="panel-body">-->
-<!--    <p>Thank you for ordering, <br/> total amount to be payed is <b>P 1,960.00</b> </p>-->
-<!--    </div>-->
+<div class="panel panel-success">
+     <!--Default panel contents -->
+    <div class="panel-heading">Order Statement</div>
+    <div class="panel-body">
+    <p>Thank you for ordering, <br/> total amount to be payed is <b>P 1,960.00</b> </p>
+    </div>
 
-    <!-- Table -->
-<!--    <table class="table">-->
-<!--        <tr>-->
-<!--            <th>-->
-<!--                Order-->
-<!--            </th>-->
-<!--            <th>-->
-<!--                Quantity-->
-<!--            </th>-->
-<!--            <th>-->
-<!--                Price-->
-<!--            </th>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>Yollow1</td>-->
-<!--            <td>Yollow2</td>-->
-<!--            <td>Yollow4</td>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--</div>-->
+     <!--Table -->
+    <table class="table">
+        <tr>
+            <th>
+                Order
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+        <tr>
+            <td>Combo Meal 1</td>
+            <td>1</td>
+            <td>P 60.00</td>
+        </tr>
+    </table>
+</div>
 @endsection
 
 @section("todo")
