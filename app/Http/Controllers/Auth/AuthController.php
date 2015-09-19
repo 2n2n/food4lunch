@@ -110,7 +110,7 @@ class AuthController extends Controller
         // user surpasses their maximum number of attempts they will get locked out.
         
         return redirect()
-            ->to($this->loginPath())
+            ->secure($this->loginPath())
             ->withInput($request->only($this->loginUsername()))
             ->withErrors([
                $this->loginUsername() => $this->getFailedLoginMessage(),
@@ -127,7 +127,7 @@ class AuthController extends Controller
 
         Auth::login($this->create($request->all()));
 
-        return redirect($this->redirectPath());
+        return redirect()->secure($this->redirectPath());
     }
 
     public function redirectToProvider(AuthenticateUser $authenticateUser, Request $request, $provider = null) {
@@ -135,6 +135,14 @@ class AuthController extends Controller
     }
 
     public function userHasLoggedIn($user) {
-        return redirect()->intended($this->redirectPath());
+        return redirect()->intended($this->redirectPath(), 302, [], true);
     }
+    
+    public function getLogout()
+    {
+        Auth::logout();
+
+        return redirect()->secure(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+    
 }
