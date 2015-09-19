@@ -127,7 +127,7 @@ class AuthController extends Controller
 
         Auth::login($this->create($request->all()));
 
-        return redirect()->secure($this->redirectPath());
+        return redirect()->intended($this->redirectPath());
     }
 
     public function redirectToProvider(AuthenticateUser $authenticateUser, Request $request, $provider = null) {
@@ -135,14 +135,7 @@ class AuthController extends Controller
     }
 
     public function userHasLoggedIn($user) {
-        return redirect()->intended($this->redirectPath(), 302, [], true);
-    }
-    
-    public function getLogout()
-    {
-        Auth::logout();
-
-        return redirect()->secure(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+        return redirect()->intended($this->redirectPath());
     }
     
 }

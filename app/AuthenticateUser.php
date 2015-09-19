@@ -30,7 +30,6 @@ class AuthenticateUser {
     }
 
     private function getSocialUser($provider) {
-        // var_dump(($this->socialite->driver($provider)->user());die;
         return $this->socialite->driver($provider)->stateless()->user();
     }
 }
