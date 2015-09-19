@@ -12,10 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+       \App\User::create([
+            'name' => 'Super Admin',
+            'email' =>'super@admin.com',
+            'password' => 'asdf1234*',
+            'role' => 2
+        ]);
 
-        // $this->call(UserTableSeeder::class);
-
-        Model::reguard();
     }
 }

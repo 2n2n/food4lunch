@@ -40,3 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
        return App\Menu::all();
    }); 
 });
+
+# route group for Super Admin
+Route::group(['prefix' => 'admin', 'middleware' => 'super'], function() {
+    Route::get('/dashboard', 'SuperAdmin@index');
+});
