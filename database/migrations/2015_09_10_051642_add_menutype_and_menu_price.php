@@ -14,7 +14,7 @@ class AddMenutypeAndMenuPrice extends Migration
     {
         if(Schema::hasTable('menus')) {
             Schema::table('menus', function($table) {
-                $table->decimal('amount', 5,3)->default('60.000');
+                $table->decimal('price', 5,3)->default('60.000');
                 $table->string('type', 4)->default('main'); #main/side
             });
         }

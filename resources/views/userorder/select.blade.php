@@ -1,4 +1,11 @@
 @extends('layouts.master')
+@section("more_assets")
+<script type="text/javascript" src="{{ URL::asset('public/js/objects/Food.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('public/js/objects/Menu.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('public/js/objects/Order.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('public/js/form_extender.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('public/js/step2/modules.js') }}"></script>
+@endsection
 @section("steps")
     <div class="list-group">
         <div class="list-group-item">Login/Register</div>
@@ -9,30 +16,27 @@
 
 @section('statement')
 <div class="panel panel-success">
-     <!--Default panel contents -->
     <div class="panel-heading">Order Statement</div>
     <div class="panel-body">
-    <p>Thank you for ordering, <br/> total amount to be payed is <b>P 1,960.00</b> </p>
+    <p>Thank you for ordering, <br/> total amount to be payed is <b id="total_amount">P 60.00</b> </p>
     </div>
-
-     <!--Table -->
-    <table class="table">
-        <tr>
-            <th>
-                Order
-            </th>
-            <th>
-                Quantity
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
-        <tr>
-            <td>Combo Meal 1</td>
-            <td>1</td>
-            <td>P 60.00</td>
-        </tr>
+    <table class="table" id="orders_table">
+        <thead>
+            <tr>
+                <th>
+                    Order
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
     </table>
 </div>
 @endsection
@@ -48,7 +52,7 @@
                         <ul class="my-form-list">
                             <li>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">Main Dish</span>
+                                    <span class="input-group-addon">Main Dish</span>
                                     <select class="form-control" name="maindish">
                                         @foreach($menu as $food) 
                                             @if($food->type == 'main')
@@ -61,7 +65,7 @@
                             </li>
                             <li>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">Side Dish</span>
+                                    <span class="input-group-addon">Side Dish</span>
                                     <select class="form-control" name="sidedish">
                                         @foreach($menu as $food) 
                                             @if($food->type == 'side')
@@ -72,10 +76,20 @@
                                     </select>
                                 </div>
                             </li>
-                            <li class="note">Free Chocolate</li>
                             <li>
-                                <input type="checkbox" name="rice" id="rice" checked/> <label for="rice">with Rice</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rice</span>
+                                    <select class="form-control" name="rice">
+                                        @foreach($menu as $food) 
+                                            @if($food->type == 'rice')
+                                            <option value="{{$food->id}}"> {{ $food->description }} </option>
+                                            @endif
+                                        @endforeach
+                                        <option value="0">-- No Rice --</option>
+                                    </select>
+                                </div>
                             </li>
+                            <li class="note">Free Chocolate</li>
                             <li class="extras"></li>
                             
                         </ul>
@@ -90,8 +104,4 @@
             @yield('statement')
         </div>
     </div>
-@endsection
-@section("more_assets")
-<script type="text/javascript" src="{{ URL::asset('public/js/form_extender.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('public/js/step2/modules.js') }}"></script>
 @endsection

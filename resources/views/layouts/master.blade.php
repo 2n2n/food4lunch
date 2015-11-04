@@ -5,7 +5,7 @@
         <title>@yield('Step') | Tres Niños</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'/>
-        <link rel="stylesheet" href="{{ URL::asset('public/css/main.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ URL::secureAsset('public/css/main.css') }}" type="text/css" />
     </head>
     
     <body>
@@ -53,9 +53,9 @@
                   });
             </script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="{{ URL::asset('public/js/main.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::secureAsset('public/js/main.js') }}"></script>
             @yield('more_assets')
-            <script type="text/javascript" src="{{ URL::asset('public/js/custom.js') }}"></script>
+            <script type="text/javascript" src="{{ URL::secureAsset('public/js/custom.js') }}"></script>
         </footer>
     </body>
 </html>

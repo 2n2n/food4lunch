@@ -95,38 +95,40 @@ class UserOrderController extends Controller
     
     public function computeOrder(Request $request) {
         if($request->isMethod('post')) {
-            $main = Menu::select('id','description', 'amount')->where('id',$request->get("maindish"))->first();
-            $side = Menu::select('id','description', 'amount')->where('id',$request->get("sidedish"))->first();
+            $main = Menu::select('id','description', 'price')->where('id',$request->get("maindish"))->first();
+            $side = Menu::select('id','description', 'price')->where('id',$request->get("sidedish"))->first();
+            $rice = Menu::select('id','description', 'price')->where('id',$request->get("rice"))->first();
             $total = 0;
             $is_combo = false;
-            
+ 
             # check if combo meal is present;
-            if(!is_null($main) && !is_null($side) && $request->has('rice')) {
+            if(!is_null($main) && !is_null($side) && !is_null($rice)) {
                 $is_combo = true;
                 $total = 60.00;
             }
             
             if(!is_null($main)) {
-                if(!$is_combo) $total += $main->amount;
+                if(!$is_combo) $total += $main->price;
                 $info['main_dish'] = $main->toJson();
             }
             if(!is_null($side)) {
-                if(!$is_combo) $total += $side->amount;
+                if(!$is_combo) $total += $side->price;
                 $info['side_dish'] = $side->toJson();
             }
-            if($request->has('rice')) {
-                if(!$is_combo) $total += 10.00;
-                $info['has_rice'] = false; 
+            if(!is_null($rice)) {
+                if(!$is_combo) $total += $rice->price;
+                $info['rice'] = $rice->toJson(); 
             }
+            
             if($request->has('extra')) {
                 foreach($request->get('extra') as $order_id) {
-                    $extra = Menu::select('id','description','amount')->where('id', $order_id)->get()->first(); 
-                    $total += $extra->amount;
+                    $extra = Menu::select('id','description','price')->where('id', $order_id)->get()->first(); 
+                    $total += $extra->price;
                     $info['extra'][] = $extra->toJson();
                 }
                 $info['extra'] = json_encode($info['extra']);
             }
-            
+            dd($info);
             $info['user_id'] = Auth::user()->id;
             $order = Order::create($info);
             return view('userorder.success', ['total' => $total]);

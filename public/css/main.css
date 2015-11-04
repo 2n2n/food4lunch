@@ -29,3 +29,7 @@ ul.my-form-list {
 .extra-add-on a.glyphicon-remove{
     color:#9A98A0;
 }
+
+tr.combo {
+    background: #FCF8E3;
+}

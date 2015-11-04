@@ -146,7 +146,8 @@ return [
         /*
          * Added providers
          */
-        Laravel\Socialite\SocialiteServiceProvider::class
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider::class
 
     ],
 
@@ -195,7 +196,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Socialite' => Laravel\Socialite\SocialiteServiceProvider::class
+        'Socialite' => Laravel\Socialite\SocialiteServiceProvider::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade::class
 
     ],
 
