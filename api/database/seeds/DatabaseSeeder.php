@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,12 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       \App\User::create([
-            'name' => 'Super Admin',
-            'email' =>'super@admin.com',
-            'password' => 'asdf1234*',
-            'role' => 2
-        ]);
-
+        // $this->call('UsersTableSeeder');
     }
 }
