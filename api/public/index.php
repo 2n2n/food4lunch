@@ -24,8 +24,6 @@ $app = require __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
-echo "<pre>";
-print_r($request = Illuminate\Http\Request::capture());
-echo "<pre>";
+
 $app->run();
-// $app->run();
+
