@@ -1,0 +1,30 @@
+{
+  "name": "fod4lunch",
+  "version": "2.0.0",
+  "description": "food for lunch built with angular and lumen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2n2n/food4lunch.git"
+  },
+  "keywords": [
+    "angular",
+    "foodporn"
+  ],
+  "author": "anthony.ras",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/2n2n/food4lunch/issues"
+  },
+  "homepage": "https://github.com/2n2n/food4lunch#readme",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.3"
+  }
+}
