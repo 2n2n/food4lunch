@@ -1,7 +1,7 @@
 'use strict';
 var path = require('path');
 module.exports = {
-    entry: './bootstrap.js',
+    entry: './index.js',
     output: {
         filename: 'app.bundle.js',
         path: '../js'

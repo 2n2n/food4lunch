@@ -11,6 +11,10 @@
 |
 */
 
-$app->get('/api', function () use ($app) {
+$app->get('/', function () use ($app) {
     return $app->version();
+});
+
+$app->get('hello/{name}', function($name) {
+  return 'greetings!:' .$name;
 });

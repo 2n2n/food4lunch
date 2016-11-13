@@ -45,12 +45,23 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var angular = __webpack_require__(1);
+
 	var ngRoute = __webpack_require__(3);
 
 	var app = angular.module('App', [ngRoute]);
+
+	/* MAIN CONTROLLER */
 	app.controller('MainController', ['$scope', function($scope) {
 	    $scope.greet = 'tony';
 	}]);
+	/* END of MAIN CONTROLLER */
+
+	app.controller('RegistrationController', ['$scope', function($scope) {
+	  $scope.register = function() {
+	    alert('Hello Register');
+	  }
+	}]);
+
 
 /***/ },
 /* 1 */

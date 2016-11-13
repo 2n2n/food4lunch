@@ -12,7 +12,6 @@
 */
 
 $app = require __DIR__.'/../bootstrap/app.php';
-
 /*
 |--------------------------------------------------------------------------
 | Run The Application
@@ -26,4 +25,3 @@ $app = require __DIR__.'/../bootstrap/app.php';
 */
 
 $app->run();
-
